@@ -1,10 +1,17 @@
 package Project1.Team5.service;
 
+import Project1.Team5.service.Dota.Player;
 import Project1.Team5.service.Dota.Response;
+import lombok.Data;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.List;
+
+@Data
 @Service
 public class DataQuery extends Response  {
 
@@ -14,20 +21,17 @@ public class DataQuery extends Response  {
 
 
 
-    //public DataQuery() {
-     //   super(metadata);
-    //}
+
 
     public DotaResponse dataQuery(){
 
-       ResponseEntity<Response> entity;
-       entity = restTemplate.getForEntity("https://api.opendota.com/api/matches/271145476?api_key=1d67e82f-c0f0-4e49-bf0d-7a4e2bc537e2", Response.class);
-       Response response  =entity.getBody();
+
        DotaResponse dotaResponse = new DotaResponse();
-
-      //dotaResponse.setAssists(response.getPlayer().);
-
-       return dotaResponse;
+       ResponseEntity<List<Player>> rateResponse = restTemplate.exchange("https://api.opendota.com/api/players/100616105/recentMatches?api_key=1d67e82f-c0f0-4e49-bf0d-7a4e2bc537e2",
+                        HttpMethod.GET, null, new ParameterizedTypeReference<List<Player>>() {
+                        });
+        List<Player> response = rateResponse.getBody();
+        //return response;
 
 
 
