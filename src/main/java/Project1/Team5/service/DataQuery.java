@@ -22,10 +22,10 @@ public class DataQuery extends Response  {
 
     RestTemplate restTemplate = new RestTemplate();
 
-    public DotaResponse dataQuery(){
+    public DotaResponse dataQuery(String playerId){
 
         DotaResponse dotaResponse = new DotaResponse();
-        ResponseEntity < List < Player >> rateResponse = restTemplate.exchange("https://api.opendota.com/api/players/100616105/matches?api_key=1d67e82f-c0f0-4e49-bf0d-7a4e2bc537e2", HttpMethod.GET, null, new ParameterizedTypeReference < List < Player >> () {});
+        ResponseEntity < List < Player >> rateResponse = restTemplate.exchange("https://api.opendota.com/api/players/"+playerId+"/matches?api_key=1d67e82f-c0f0-4e49-bf0d-7a4e2bc537e2", HttpMethod.GET, null, new ParameterizedTypeReference < List < Player >> () {});
         List<Player> players = rateResponse.getBody();
 
         ArrayList<Integer> heroIDList = new ArrayList<Integer>();

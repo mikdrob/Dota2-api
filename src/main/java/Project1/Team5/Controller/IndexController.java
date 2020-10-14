@@ -5,6 +5,7 @@ import Project1.Team5.service.DataQuery;
 import Project1.Team5.service.DotaResponse;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -13,10 +14,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class IndexController {
 
     @GetMapping
-    public DotaResponse index(){
+    public DotaResponse index(@RequestParam String playerId){
         DataQuery dataquery = new DataQuery();
-        return dataquery.dataQuery();
+        return dataquery.dataQuery(playerId);
     }
+
 
 
 }
