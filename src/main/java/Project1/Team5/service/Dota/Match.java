@@ -9,7 +9,7 @@ import java.awt.*;
 
 @EqualsAndHashCode
 @Data
-public class Player {
+public class Match {
     public int getHero_id() {
         return hero_id;
     }
@@ -21,7 +21,7 @@ public class Player {
     public boolean isRadiant_win() {
         return radiant_win;
     }
-    
+
     @JsonProperty("hero_id")
     private int hero_id;
 
