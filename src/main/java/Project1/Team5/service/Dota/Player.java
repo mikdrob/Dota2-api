@@ -10,11 +10,24 @@ import java.awt.*;
 @EqualsAndHashCode
 @Data
 public class Player {
+    public int getHero_id() {
+        return hero_id;
+    }
 
-    @JsonProperty("match_id")
-    private long match_id;
-    @JsonProperty("assists")
-    private int assists;
-    @JsonProperty("kills")
-    private int kills;
+    public int getPlayer_slot() {
+        return player_slot;
+    }
+
+    public boolean isRadiant_win() {
+        return radiant_win;
+    }
+    
+    @JsonProperty("hero_id")
+    private int hero_id;
+
+    @JsonProperty("player_slot")
+    private int player_slot;
+
+    @JsonProperty("radiant_win")
+    private boolean radiant_win;
 }
