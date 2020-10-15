@@ -5,8 +5,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.awt.*;
-
 @EqualsAndHashCode
 @Data
 public class Match {
