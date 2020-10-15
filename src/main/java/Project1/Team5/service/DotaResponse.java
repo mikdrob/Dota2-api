@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public class DotaResponse {
 
-    //TODO: Add constructor 
+    //TODO: Add constructor
 
     private String player_name;
     private int solo_competitive_rank;

@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 
-@RequestMapping("/index")
+@RequestMapping("/stats")
 @RestController
-public class IndexController {
+public class StatsController {
 
     @GetMapping
     public DotaResponse index(@RequestParam String playerId){
