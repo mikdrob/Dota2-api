@@ -1,6 +1,7 @@
 package Project1.Team5.service;
 
 import Project1.Team5.service.Dota.Match;
+import Project1.Team5.service.Dota.Player;
 import Project1.Team5.service.Dota.Response;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -22,18 +23,23 @@ public class DataQuery extends Response  {
 
     RestTemplate restTemplate = new RestTemplate();
 
+
     public DotaResponse dataQuery(String playerId){
 
         DotaResponse dotaResponse = new DotaResponse();
         ResponseEntity < List <Match>> rateResponse = restTemplate.exchange("https://api.opendota.com/api/players/"+playerId+"/matches?api_key=1d67e82f-c0f0-4e49-bf0d-7a4e2bc537e2", HttpMethod.GET, null, new ParameterizedTypeReference < List <Match>> () {});
+
         List<Match> matches = rateResponse.getBody();
 
+
         ArrayList<Integer> heroIDList = new ArrayList<Integer>();
+
         int winCount = 0;
 
         for (Match match : matches) {
             heroIDList.add(match.getHero_id());
         }
+
 
         Map<Integer, Long> heroIDOccurrences =
                 heroIDList.stream().collect(Collectors.groupingBy(w -> w, Collectors.counting()));
