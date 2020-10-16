@@ -5,6 +5,7 @@ import Project1.Team5.service.Dota.Player;
 import Project1.Team5.service.Dota.Response;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.json.JSONObject;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -28,8 +29,9 @@ public class DataQuery extends Response  {
 
         DotaResponse dotaResponse = new DotaResponse();
         ResponseEntity < List <Match>> rateResponse = restTemplate.exchange("https://api.opendota.com/api/players/"+playerId+"/matches?api_key=1d67e82f-c0f0-4e49-bf0d-7a4e2bc537e2", HttpMethod.GET, null, new ParameterizedTypeReference < List <Match>> () {});
-
+        ResponseEntity <JSONObject> rankResponse = restTemplate.exchange("https://api.opendota.com/api/players/"+playerId+"?api_key=1d67e82f-c0f0-4e49-bf0d-7a4e2bc537e2", HttpMethod.GET, null, new ParameterizedTypeReference <JSONObject> () {});
         List<Match> matches = rateResponse.getBody();
+        JSONObject ranks = rankResponse.getBody();
 
 
         ArrayList<Integer> heroIDList = new ArrayList<Integer>();
@@ -65,6 +67,7 @@ public class DataQuery extends Response  {
         System.out.println("Matches won with hero:" + winCount);
         System.out.println("Matches lost with hero:" + (heroIDOccurrences.get(mostUsedHeroID)-winCount));
         System.out.println("Win %:" + winPercentage);
+        System.out.println(ranks);
         return dotaResponse;
 
 
