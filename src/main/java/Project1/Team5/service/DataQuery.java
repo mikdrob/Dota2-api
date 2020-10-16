@@ -28,10 +28,13 @@ public class DataQuery extends Response  {
     public DotaResponse dataQuery(String playerId){
 
         DotaResponse dotaResponse = new DotaResponse();
-        ResponseEntity < List <Match>> rateResponse = restTemplate.exchange("https://api.opendota.com/api/players/"+playerId+"/matches?api_key=1d67e82f-c0f0-4e49-bf0d-7a4e2bc537e2", HttpMethod.GET, null, new ParameterizedTypeReference < List <Match>> () {});
-        ResponseEntity <JSONObject> rankResponse = restTemplate.exchange("https://api.opendota.com/api/players/"+playerId+"?api_key=1d67e82f-c0f0-4e49-bf0d-7a4e2bc537e2", HttpMethod.GET, null, new ParameterizedTypeReference <JSONObject> () {});
+        ResponseEntity < List <Match>> rateResponse = restTemplate.exchange("https://api.opendota.com/api/players/"+playerId+"/matches?api_key=1d67e82f-c0f0-4e49-bf0d-7a4e2bc537e2", HttpMethod.GET, null, new ParameterizedTypeReference < List <Match>> () {});;
         List<Match> matches = rateResponse.getBody();
-        JSONObject ranks = rankResponse.getBody();
+
+
+        ResponseEntity<Player> entity;
+        entity = restTemplate.getForEntity("https://api.opendota.com/api/players/"+playerId+"?api_key=1d67e82f-c0f0-4e49-bf0d-7a4e2bc537e2", Player.class);
+        Player rankResponse = entity.getBody();
 
 
         ArrayList<Integer> heroIDList = new ArrayList<Integer>();
@@ -67,11 +70,8 @@ public class DataQuery extends Response  {
         System.out.println("Matches won with hero:" + winCount);
         System.out.println("Matches lost with hero:" + (heroIDOccurrences.get(mostUsedHeroID)-winCount));
         System.out.println("Win %:" + winPercentage);
-        System.out.println(ranks);
+        System.out.println(rankResponse);
         return dotaResponse;
-
-
-
 
 
     }
