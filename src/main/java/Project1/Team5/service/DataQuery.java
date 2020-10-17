@@ -2,7 +2,7 @@ package Project1.Team5.service;
 
 import Project1.Team5.service.Dota.Match;
 import Project1.Team5.service.Dota.Player;
-import Project1.Team5.service.Dota.Response;
+//import Project1.Team5.service.Dota.Response;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.json.JSONObject;
@@ -20,14 +20,13 @@ import java.util.stream.Collectors;
 @EqualsAndHashCode
 @Data
 @Service
-public class DataQuery extends Response  {
+public class DataQuery  {
 
     RestTemplate restTemplate = new RestTemplate();
 
 
     public DotaResponse dataQuery(String playerId){
 
-        DotaResponse dotaResponse = new DotaResponse();
         ResponseEntity < List <Match>> rateResponse = restTemplate.exchange("https://api.opendota.com/api/players/"+playerId+"/matches?api_key=1d67e82f-c0f0-4e49-bf0d-7a4e2bc537e2", HttpMethod.GET, null, new ParameterizedTypeReference < List <Match>> () {});;
         List<Match> matches = rateResponse.getBody();
 
@@ -67,10 +66,15 @@ public class DataQuery extends Response  {
 
         double winPercentage = ((double) heroIDOccurrences.get(mostUsedHeroID) - (double) winCount) / (double) heroIDOccurrences.get(mostUsedHeroID);
         System.out.println("Matches played with hero:" + heroIDOccurrences.get(mostUsedHeroID));
+        long matchesPlayed = heroIDOccurrences.get(mostUsedHeroID);
         System.out.println("Matches won with hero:" + winCount);
         System.out.println("Matches lost with hero:" + (heroIDOccurrences.get(mostUsedHeroID)-winCount));
         System.out.println("Win %:" + winPercentage);
         System.out.println(rankResponse);
+
+        DotaResponse.MostUsedHero mostUsedHero = new DotaResponse.MostUsedHero(mostUsedHeroID,matchesPlayed,winCount,winPercentage);
+        DotaResponse.LeastUsedHero leastUsedHero = new DotaResponse.LeastUsedHero(leastUsedHeroID);
+        DotaResponse dotaResponse = new DotaResponse("hello",rankResponse.getSoloRank(),rankResponse.getCompetitiveRank(),0, mostUsedHero,leastUsedHero);
         return dotaResponse;
 
 
