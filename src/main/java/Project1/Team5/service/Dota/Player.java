@@ -1,12 +1,9 @@
 package Project1.Team5.service.Dota;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-
-import java.util.List;
 
 @EqualsAndHashCode
 @Data
