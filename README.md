@@ -5,7 +5,7 @@ https://gitlab.cs.ttu.ee/ahjoyo/team5_project/-/wikis/Overview
 
 ### Links
 
-http://localhost:8080/v2/api-docs
+http://localhost:8080/stats?playerId=
 http://localhost:8080/swagger-ui/
 
 ## Setup Guide
