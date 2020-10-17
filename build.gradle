@@ -27,11 +27,14 @@ dependencies {
 	}
 	testCompileOnly 'org.projectlombok:lombok:1.18.12'
 	testAnnotationProcessor 'org.projectlombok:lombok:1.18.12'
+
 }
-
-
 
 
 test {
 	useJUnitPlatform()
 }
+
+check.dependsOn(
+		test
+)
