@@ -35,7 +35,6 @@ public class DataQuery  {
         entity = restTemplate.getForEntity("https://api.opendota.com/api/players/"+playerId+"?api_key=1d67e82f-c0f0-4e49-bf0d-7a4e2bc537e2", Player.class);
         Player rankResponse = entity.getBody();
 
-
         ArrayList<Integer> heroIDList = new ArrayList<Integer>();
 
         int winCount = 0;
@@ -50,8 +49,6 @@ public class DataQuery  {
 
         Integer mostUsedHeroID = heroIDOccurrences.entrySet().stream().max(Map.Entry.comparingByValue()).get().getKey();
         Integer leastUsedHeroID = heroIDOccurrences.entrySet().stream().min(Map.Entry.comparingByValue()).get().getKey();
-        System.out.println("Most used hero ID:" + mostUsedHeroID);
-        System.out.println("Least used hero ID:" + leastUsedHeroID);
 
         for (Match match : matches) {
             if (match.getHero_id() == mostUsedHeroID) {
@@ -65,16 +62,18 @@ public class DataQuery  {
         }
 
         double winPercentage = ((double) heroIDOccurrences.get(mostUsedHeroID) - (double) winCount) / (double) heroIDOccurrences.get(mostUsedHeroID);
-        System.out.println("Matches played with hero:" + heroIDOccurrences.get(mostUsedHeroID));
         long matchesPlayed = heroIDOccurrences.get(mostUsedHeroID);
-        System.out.println("Matches won with hero:" + winCount);
-        System.out.println("Matches lost with hero:" + (heroIDOccurrences.get(mostUsedHeroID)-winCount));
-        System.out.println("Win %:" + winPercentage);
-        System.out.println(rankResponse);
 
         DotaResponse.MostUsedHero mostUsedHero = new DotaResponse.MostUsedHero(mostUsedHeroID,matchesPlayed,winCount,winPercentage);
         DotaResponse.LeastUsedHero leastUsedHero = new DotaResponse.LeastUsedHero(leastUsedHeroID);
-        DotaResponse dotaResponse = new DotaResponse("hello",rankResponse.getSoloRank(),rankResponse.getCompetitiveRank(),0, mostUsedHero,leastUsedHero);
+        DotaResponse dotaResponse = new DotaResponse(
+                rankResponse.getProfile().getName(),
+                rankResponse.getSoloRank(),
+                rankResponse.getCompetitiveRank(),
+                rankResponse.getMmr_estimate().getEstimate(),
+                mostUsedHero,leastUsedHero
+        );
+
         return dotaResponse;
 
 
