@@ -1,5 +1,6 @@
 package Project1.Team5.service;
 
+import Project1.Team5.exception.DotaException;
 import Project1.Team5.service.Dota.Match;
 import Project1.Team5.service.Dota.Player;
 import lombok.Data;
@@ -33,7 +34,12 @@ public class DataQuery {
 
         ResponseEntity<Player> entity;
         entity = restTemplate.getForEntity("https://api.opendota.com/api/players/" + playerId + "?api_key=1d67e82f-c0f0-4e49-bf0d-7a4e2bc537e2", Player.class);
+        if(!entity.getStatusCode().is2xxSuccessful()){
+            throw new DotaException("It is not successful");
+        }
         Player rankResponse = entity.getBody();
+
+
 
         ArrayList<Integer> heroIDList = new ArrayList<Integer>();
 
