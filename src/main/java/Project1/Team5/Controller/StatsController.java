@@ -14,11 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class StatsController {
 
     @GetMapping
-    public DotaResponse index(@RequestParam String playerId){
+    public DotaResponse index(@RequestParam String playerId) {
         DataQuery dataquery = new DataQuery();
         return dataquery.dataQuery(playerId);
     }
-
 
 
 }

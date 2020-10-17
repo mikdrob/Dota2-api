@@ -18,19 +18,21 @@ import java.util.stream.Collectors;
 @EqualsAndHashCode
 @Data
 @Service
-public class DataQuery  {
+public class DataQuery {
 
     RestTemplate restTemplate = new RestTemplate();
 
 
-    public DotaResponse dataQuery(String playerId){
+    public DotaResponse dataQuery(String playerId) {
 
-        ResponseEntity < List <Match>> rateResponse = restTemplate.exchange("https://api.opendota.com/api/players/"+playerId+"/matches?api_key=1d67e82f-c0f0-4e49-bf0d-7a4e2bc537e2", HttpMethod.GET, null, new ParameterizedTypeReference < List <Match>> () {});;
+        ResponseEntity<List<Match>> rateResponse = restTemplate.exchange("https://api.opendota.com/api/players/" + playerId + "/matches?api_key=1d67e82f-c0f0-4e49-bf0d-7a4e2bc537e2", HttpMethod.GET, null, new ParameterizedTypeReference<List<Match>>() {
+        });
+        ;
         List<Match> matches = rateResponse.getBody();
 
 
         ResponseEntity<Player> entity;
-        entity = restTemplate.getForEntity("https://api.opendota.com/api/players/"+playerId+"?api_key=1d67e82f-c0f0-4e49-bf0d-7a4e2bc537e2", Player.class);
+        entity = restTemplate.getForEntity("https://api.opendota.com/api/players/" + playerId + "?api_key=1d67e82f-c0f0-4e49-bf0d-7a4e2bc537e2", Player.class);
         Player rankResponse = entity.getBody();
 
         ArrayList<Integer> heroIDList = new ArrayList<Integer>();
@@ -62,14 +64,14 @@ public class DataQuery  {
         double winPercentage = ((double) heroIDOccurrences.get(mostUsedHeroID) - (double) winCount) / (double) heroIDOccurrences.get(mostUsedHeroID);
         long matchesPlayed = heroIDOccurrences.get(mostUsedHeroID);
 
-        DotaResponse.MostUsedHero mostUsedHero = new DotaResponse.MostUsedHero(mostUsedHeroID,matchesPlayed,winCount,winPercentage);
+        DotaResponse.MostUsedHero mostUsedHero = new DotaResponse.MostUsedHero(mostUsedHeroID, matchesPlayed, winCount, winPercentage);
         DotaResponse.LeastUsedHero leastUsedHero = new DotaResponse.LeastUsedHero(leastUsedHeroID);
         DotaResponse dotaResponse = new DotaResponse(
                 rankResponse.getProfile().getName(),
                 rankResponse.getSoloRank(),
                 rankResponse.getCompetitiveRank(),
                 rankResponse.getMmr_estimate().getEstimate(),
-                mostUsedHero,leastUsedHero
+                mostUsedHero, leastUsedHero
         );
 
         return dotaResponse;

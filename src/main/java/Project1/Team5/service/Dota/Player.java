@@ -9,9 +9,13 @@ import lombok.EqualsAndHashCode;
 @Data
 
 public class Player {
-    public String getSoloRank() { return solo_competitive_rank; }
+    public String getSoloRank() {
+        return solo_competitive_rank;
+    }
 
-    public String getCompetitiveRank() { return competitive_rank; }
+    public String getCompetitiveRank() {
+        return competitive_rank;
+    }
 
     public MMR getMmr_estimate() {
         return mmr_estimate;

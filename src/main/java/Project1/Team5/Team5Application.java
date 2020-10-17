@@ -9,14 +9,14 @@ import org.springframework.web.client.RestTemplate;
 @SpringBootApplication
 public class Team5Application {
 
-	public static void main(String[] args) {
-		SpringApplication.run(Team5Application.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(Team5Application.class, args);
+    }
 
-	@Bean
-	public RestTemplate restTemplate(RestTemplateBuilder builder) {
-		// Do any additional configuration here
-		return builder.build();
-	}
+    @Bean
+    public RestTemplate restTemplate(RestTemplateBuilder builder) {
+        // Do any additional configuration here
+        return builder.build();
+    }
 
 }
