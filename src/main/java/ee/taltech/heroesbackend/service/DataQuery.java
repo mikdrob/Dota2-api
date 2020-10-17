@@ -1,8 +1,7 @@
-package Project1.Team5.service;
+package ee.taltech.heroesbackend.service;
 
-import Project1.Team5.exception.DotaException;
-import Project1.Team5.service.Dota.Match;
-import Project1.Team5.service.Dota.Player;
+import ee.taltech.heroesbackend.service.Dota.Match;
+import ee.taltech.heroesbackend.service.Dota.Player;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.core.ParameterizedTypeReference;
@@ -34,12 +33,7 @@ public class DataQuery {
 
         ResponseEntity<Player> entity;
         entity = restTemplate.getForEntity("https://api.opendota.com/api/players/" + playerId + "?api_key=1d67e82f-c0f0-4e49-bf0d-7a4e2bc537e2", Player.class);
-        if(!entity.getStatusCode().is2xxSuccessful()){
-            throw new DotaException("It is not successful");
-        }
         Player rankResponse = entity.getBody();
-
-
 
         ArrayList<Integer> heroIDList = new ArrayList<Integer>();
 

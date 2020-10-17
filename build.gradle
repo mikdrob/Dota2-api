@@ -1,11 +1,11 @@
 plugins {
-	id 'org.springframework.boot' version '2.3.4.RELEASE'
+	id 'org.springframework.boot' version '2.3.3.RELEASE'
 	id 'io.spring.dependency-management' version '1.0.10.RELEASE'
 	id 'jacoco'
 	id 'java'
 }
 
-group = 'Project1'
+group = 'ee.taltech'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 
@@ -20,21 +20,49 @@ dependencies {
 
 	compile 'io.springfox:springfox-boot-starter:3.0.0'
 
-	compile 'org.json:json:20171018'
-
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
 	testCompileOnly 'org.projectlombok:lombok:1.18.12'
 	testAnnotationProcessor 'org.projectlombok:lombok:1.18.12'
-
 }
-
 
 test {
 	useJUnitPlatform()
 }
 
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+jacoco {
+	toolVersion = "0.8.6"
+	reportsDir = file("$buildDir/reports/jacoco")
+}
+
+jacocoTestReport {
+	reports {
+		xml.enabled true
+	}
+}
+
+jacocoTestCoverageVerification {
+	violationRules {
+		rule {
+			element = 'BUNDLE'
+			limit {
+				counter = 'COMPLEXITY'
+				value = 'COVEREDRATIO'
+				minimum = 0.20
+			}
+		}
+	}
+}
+
 check.dependsOn(
-		test
+		test,
+		jacocoTestReport,
+		jacocoTestCoverageVerification
 )

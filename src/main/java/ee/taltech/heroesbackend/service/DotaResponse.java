@@ -1,4 +1,4 @@
-package Project1.Team5.service;
+package ee.taltech.heroesbackend.service;
 
 import lombok.Data;
 

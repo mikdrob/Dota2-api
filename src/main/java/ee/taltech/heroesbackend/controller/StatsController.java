@@ -1,8 +1,8 @@
-package Project1.Team5.Controller;
+package ee.taltech.heroesbackend.controller;
 
 
-import Project1.Team5.service.DataQuery;
-import Project1.Team5.service.DotaResponse;
+import ee.taltech.heroesbackend.service.DataQuery;
+import ee.taltech.heroesbackend.service.DotaResponse;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;

@@ -1,4 +1,5 @@
 HELP.md
+custom.yaml
 .gradle
 build/
 !gradle/wrapper/gradle-wrapper.jar

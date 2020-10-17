@@ -1,13 +1,13 @@
-package Project1.Team5;
+package ee.taltech.heroesbackend;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class Team5ApplicationTests {
+class ApplicationTests {
 
-    @Test
-    void contextLoads() {
-    }
+	@Test
+	void contextLoads() {
+	}
 
 }
