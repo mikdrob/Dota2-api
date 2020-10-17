@@ -31,11 +31,10 @@ dependencies {
 }
 
 
-
-
 test {
 	useJUnitPlatform()
 }
+
 check.dependsOn(
 		test
 )
