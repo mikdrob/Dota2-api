@@ -1,6 +1,7 @@
 package ee.taltech.dotaStats.service.Dota;
 
 
+import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -54,7 +55,7 @@ public class Player {
             return name;
         }
 
-        @JsonProperty("name")
+        @JsonProperty("personaname")
         private String name;
 
     }
