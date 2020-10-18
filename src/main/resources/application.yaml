@@ -1,4 +1,3 @@
 app:
-  alpha-vantage:
-    url: https://www.alphavantage.co/query
-    key: demo
+  opendota:
+    key: 1d67e82f-c0f0-4e49-bf0d-7a4e2bc537e2
