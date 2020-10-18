@@ -1,4 +1,4 @@
-package ee.taltech.heroesbackend.service.Dota;
+package ee.taltech.dotaStats.service.Dota;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;

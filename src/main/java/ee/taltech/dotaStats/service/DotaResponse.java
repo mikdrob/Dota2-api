@@ -1,4 +1,4 @@
-package ee.taltech.heroesbackend.service;
+package ee.taltech.dotaStats.service;
 
 import lombok.Data;
 

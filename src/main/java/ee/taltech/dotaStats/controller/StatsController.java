@@ -1,8 +1,8 @@
-package ee.taltech.heroesbackend.controller;
+package ee.taltech.dotaStats.controller;
 
 
-import ee.taltech.heroesbackend.service.DataQuery;
-import ee.taltech.heroesbackend.service.DotaResponse;
+import ee.taltech.dotaStats.service.DataQuery;
+import ee.taltech.dotaStats.service.DotaResponse;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;

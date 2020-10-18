@@ -1,7 +1,7 @@
-package ee.taltech.heroesbackend.service;
+package ee.taltech.dotaStats.service;
 
-import ee.taltech.heroesbackend.service.Dota.Match;
-import ee.taltech.heroesbackend.service.Dota.Player;
+import ee.taltech.dotaStats.service.Dota.Match;
+import ee.taltech.dotaStats.service.Dota.Player;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.core.ParameterizedTypeReference;
