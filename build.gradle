@@ -17,7 +17,9 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	compileOnly 'org.projectlombok:lombok:1.18.12'
 	annotationProcessor 'org.projectlombok:lombok:1.18.12'
-
+	compile 'org.springframework.boot:spring-boot-starter-web'
+	testCompile 'org.springframework.boot:spring-boot-starter-test'
+	testCompile 'io.rest-assured:rest-assured:3.3.0'
 	compile 'io.springfox:springfox-boot-starter:3.0.0'
 
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {

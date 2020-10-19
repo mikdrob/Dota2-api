@@ -21,11 +21,11 @@ class rankResponseController {
         ResponseEntity<Player> entity = testRestTemplate.getForEntity("/stats?playerId=100616105", Player.class);
         Player rankResponse = entity.getBody();
         assertEquals(HttpStatus.OK, entity.getStatusCode());
-        //assertNotNull(rankResponse);
+        assertNotNull(rankResponse);
 
-        //assertNotNull(rankResponse.getProfile().getName());
-        //assertNotNull(rankResponse.getSoloRank());
-        //assertNotNull(rankResponse.getCompetitiveRank());
-        //assertNotNull(rankResponse.getMmr_estimate().getEstimate());
+        assertNotNull(rankResponse.getProfile().getName());
+        assertNotNull(rankResponse.getSoloRank());
+        assertNotNull(rankResponse.getCompetitiveRank());
+        assertNotNull(rankResponse.getMmr_estimate().getEstimate());
     }
 }
