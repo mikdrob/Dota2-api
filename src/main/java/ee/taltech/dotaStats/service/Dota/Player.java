@@ -51,9 +51,7 @@ public class Player {
 
     @Data
     public class Profile {
-        public String getName() {
-            return name;
-        }
+        public String getName() { return name; }
 
         @JsonProperty("personaname")
         private String name;

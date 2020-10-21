@@ -23,9 +23,14 @@ class rankResponseController {
         assertEquals(HttpStatus.OK, entity.getStatusCode());
         assertNotNull(rankResponse);
 
-        assertNotNull(rankResponse.getProfile().getName());
         assertNotNull(rankResponse.getSoloRank());
         assertNotNull(rankResponse.getCompetitiveRank());
         assertNotNull(rankResponse.getMmr_estimate().getEstimate());
+    }
+
+    @Test
+    void controllerBodyErrorHandling() {
+        ResponseEntity<Player> entity = testRestTemplate.getForEntity("/stats?playerId=324", Player.class);
+        assertEquals(HttpStatus.BAD_REQUEST, entity.getStatusCode());
     }
 }
