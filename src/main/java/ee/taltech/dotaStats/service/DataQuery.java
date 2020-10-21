@@ -61,7 +61,7 @@ public class DataQuery {
             }
         }
 
-        double winPercentage = ((double) heroIDOccurrences.get(mostUsedHeroID) - (double) winCount) / (double) heroIDOccurrences.get(mostUsedHeroID);
+        double winPercentage = (double) winCount / (double) heroIDOccurrences.get(mostUsedHeroID);
         long matchesPlayed = heroIDOccurrences.get(mostUsedHeroID);
 
         DotaResponse.MostUsedHero mostUsedHero = new DotaResponse.MostUsedHero(mostUsedHeroID, matchesPlayed, winCount, winPercentage);
