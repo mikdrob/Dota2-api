@@ -15,6 +15,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import static ee.taltech.dotaStats.service.DotaCalculation.calculate_leastUsedHero;
+import static ee.taltech.dotaStats.service.DotaCalculation.calculate_mostUsedHero;
+
 @EqualsAndHashCode
 @Data
 @Service
@@ -22,12 +25,9 @@ public class DataQuery {
 
     RestTemplate restTemplate = new RestTemplate();
 
-
     public DotaResponse dataQuery(String playerId) {
-
         ResponseEntity<List<Match>> rateResponse = restTemplate.exchange("https://api.opendota.com/api/players/" + playerId + "/matches?api_key=1d67e82f-c0f0-4e49-bf0d-7a4e2bc537e2", HttpMethod.GET, null, new ParameterizedTypeReference<List<Match>>() {
         });
-        ;
         List<Match> matches = rateResponse.getBody();
 
 
@@ -37,35 +37,17 @@ public class DataQuery {
 
         ArrayList<Integer> heroIDList = new ArrayList<Integer>();
 
-        int winCount = 0;
-
         for (Match match : matches) {
             heroIDList.add(match.getHero_id());
         }
 
-
         Map<Integer, Long> heroIDOccurrences =
                 heroIDList.stream().collect(Collectors.groupingBy(w -> w, Collectors.counting()));
 
-        Integer mostUsedHeroID = heroIDOccurrences.entrySet().stream().max(Map.Entry.comparingByValue()).get().getKey();
-        Integer leastUsedHeroID = heroIDOccurrences.entrySet().stream().min(Map.Entry.comparingByValue()).get().getKey();
 
-        for (Match match : matches) {
-            if (match.getHero_id() == mostUsedHeroID) {
-                //Which slot the player is in. 0-127 are Radiant, 128-255 are Dire
-                if (match.isRadiant_win() && match.getPlayer_slot() < 128) {
-                    winCount += 1;
-                } else if (!match.isRadiant_win() && match.getPlayer_slot() > 127) {
-                    winCount += 1;
-                }
-            }
-        }
+        DotaResponse.MostUsedHero mostUsedHero = calculate_mostUsedHero(matches, playerId, heroIDOccurrences);
+        DotaResponse.LeastUsedHero leastUsedHero = calculate_leastUsedHero(matches, playerId, heroIDOccurrences);
 
-        double winPercentage = (double) winCount / (double) heroIDOccurrences.get(mostUsedHeroID);
-        long matchesPlayed = heroIDOccurrences.get(mostUsedHeroID);
-
-        DotaResponse.MostUsedHero mostUsedHero = new DotaResponse.MostUsedHero(mostUsedHeroID, matchesPlayed, winCount, winPercentage);
-        DotaResponse.LeastUsedHero leastUsedHero = new DotaResponse.LeastUsedHero(leastUsedHeroID);
         DotaResponse dotaResponse = new DotaResponse(
                 rankResponse.getProfile().getName(),
                 rankResponse.getSoloRank(),
@@ -75,7 +57,6 @@ public class DataQuery {
         );
 
         return dotaResponse;
-
 
     }
 }
