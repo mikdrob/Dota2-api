@@ -1,3 +1,12 @@
 app:
   opendota:
     key: 1d67e82f-c0f0-4e49-bf0d-7a4e2bc537e2
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  packages-to-scan: ee.taltech.dotaStats.controller
+  swagger-ui:
+    disable-swagger-default-url: true
+    path: /
+    url: /api-docs
