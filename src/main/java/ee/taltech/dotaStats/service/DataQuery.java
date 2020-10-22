@@ -45,8 +45,8 @@ public class DataQuery {
                 heroIDList.stream().collect(Collectors.groupingBy(w -> w, Collectors.counting()));
 
 
-        DotaResponse.MostUsedHero mostUsedHero = calculate_mostUsedHero(matches, playerId, heroIDOccurrences);
-        DotaResponse.LeastUsedHero leastUsedHero = calculate_leastUsedHero(matches, playerId, heroIDOccurrences);
+        DotaResponse.MostUsedHero mostUsedHero = calculate_mostUsedHero(matches, heroIDOccurrences);
+        DotaResponse.LeastUsedHero leastUsedHero = calculate_leastUsedHero(matches, heroIDOccurrences);
 
         DotaResponse dotaResponse = new DotaResponse(
                 rankResponse.getProfile().getName(),

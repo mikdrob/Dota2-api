@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 public class DotaCalculation {
 
 
-    public static DotaResponse.MostUsedHero calculate_mostUsedHero(List<Match> matches, String playerId, Map<Integer, Long> heroIDOccurrences) {
+    public static DotaResponse.MostUsedHero calculate_mostUsedHero(List<Match> matches, Map<Integer, Long> heroIDOccurrences) {
         int winCount = 0;
 
         Integer mostUsedHeroID = heroIDOccurrences.entrySet().stream().max(Map.Entry.comparingByValue()).get().getKey();
@@ -40,7 +40,7 @@ public class DotaCalculation {
         return new DotaResponse.MostUsedHero(mostUsedHeroID, matchesPlayed, winCount, winPercentage);
     }
 
-    public static DotaResponse.LeastUsedHero calculate_leastUsedHero(List<Match> matches, String playerId, Map<Integer, Long> heroIDOccurrences){
+    public static DotaResponse.LeastUsedHero calculate_leastUsedHero(List<Match> matches, Map<Integer, Long> heroIDOccurrences){
         Integer leastUsedHeroID = heroIDOccurrences.entrySet().stream().min(Map.Entry.comparingByValue()).get().getKey();
         return new DotaResponse.LeastUsedHero(leastUsedHeroID);
     }
