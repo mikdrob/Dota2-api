@@ -31,8 +31,7 @@ public class DataQuery {
         List<Match> matches = rateResponse.getBody();
 
 
-        ResponseEntity<Player> entity;
-        entity = restTemplate.getForEntity("https://api.opendota.com/api/players/" + playerId + "?api_key=1d67e82f-c0f0-4e49-bf0d-7a4e2bc537e2", Player.class);
+        ResponseEntity<Player> entity = restTemplate.getForEntity("https://api.opendota.com/api/players/" + playerId + "?api_key=1d67e82f-c0f0-4e49-bf0d-7a4e2bc537e2", Player.class);
         Player rankResponse = entity.getBody();
 
         ArrayList<Integer> heroIDList = new ArrayList<Integer>();

@@ -1,17 +1,10 @@
 package ee.taltech.dotaStats.service;
 
 import ee.taltech.dotaStats.service.Dota.Match;
-import ee.taltech.dotaStats.service.Dota.Player;
-import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 
 @Service

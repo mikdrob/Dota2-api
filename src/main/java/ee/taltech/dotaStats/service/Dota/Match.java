@@ -7,7 +7,7 @@ import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode
 @Data
-public class Match {
+public class Match{
     public int getHero_id() {
         return hero_id;
     }
