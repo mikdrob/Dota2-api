@@ -4,6 +4,7 @@ import ee.taltech.dotaStats.service.Dota.Match;
 import ee.taltech.dotaStats.service.Dota.Player;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +22,7 @@ import static ee.taltech.dotaStats.service.DotaCalculation.calculate_mostUsedHer
 @EqualsAndHashCode
 @Data
 @Service
+@Slf4j
 public class DataQuery {
 
     RestTemplate restTemplate = new RestTemplate();
@@ -29,6 +31,7 @@ public class DataQuery {
         ResponseEntity<List<Match>> rateResponse = restTemplate.exchange("https://api.opendota.com/api/players/" + playerId + "/matches?api_key=1d67e82f-c0f0-4e49-bf0d-7a4e2bc537e2", HttpMethod.GET, null, new ParameterizedTypeReference<List<Match>>() {
         });
         List<Match> matches = rateResponse.getBody();
+        log.info("request info from https://api.opendota.com/api/players " + rateResponse.getHeaders());
 
 
         ResponseEntity<Player> entity = restTemplate.getForEntity("https://api.opendota.com/api/players/" + playerId + "?api_key=1d67e82f-c0f0-4e49-bf0d-7a4e2bc537e2", Player.class);
