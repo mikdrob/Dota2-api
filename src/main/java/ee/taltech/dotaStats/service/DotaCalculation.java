@@ -3,13 +3,26 @@ package ee.taltech.dotaStats.service;
 import ee.taltech.dotaStats.service.Dota.Match;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 
 @Service
 public class DotaCalculation {
 
+    public static Map<Integer, Long> calculateHeroIDOCcurrences(List<Match> matches) {
+        ArrayList<Integer> heroIDList = new ArrayList<Integer>();
+
+        for (Match match : matches) {
+            heroIDList.add(match.getHero_id());
+        }
+
+        return heroIDList.stream().collect(Collectors.groupingBy(w -> w, Collectors.counting()));
+
+
+    }
 
     public static DotaResponse.MostUsedHero calculate_mostUsedHero(List<Match> matches, Map<Integer, Long> heroIDOccurrences) {
         int winCount = 0;

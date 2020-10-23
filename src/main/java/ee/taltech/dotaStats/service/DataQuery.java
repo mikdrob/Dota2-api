@@ -16,8 +16,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static ee.taltech.dotaStats.service.DotaCalculation.calculate_leastUsedHero;
-import static ee.taltech.dotaStats.service.DotaCalculation.calculate_mostUsedHero;
+import static ee.taltech.dotaStats.service.DotaCalculation.*;
 
 @EqualsAndHashCode
 @Data
@@ -37,14 +36,7 @@ public class DataQuery {
         ResponseEntity<Player> entity = restTemplate.getForEntity("https://api.opendota.com/api/players/" + playerId + "?api_key=1d67e82f-c0f0-4e49-bf0d-7a4e2bc537e2", Player.class);
         Player rankResponse = entity.getBody();
 
-        ArrayList<Integer> heroIDList = new ArrayList<Integer>();
-
-        for (Match match : matches) {
-            heroIDList.add(match.getHero_id());
-        }
-
-        Map<Integer, Long> heroIDOccurrences =
-                heroIDList.stream().collect(Collectors.groupingBy(w -> w, Collectors.counting()));
+        Map<Integer, Long> heroIDOccurrences = calculateHeroIDOCcurrences(matches);
 
 
         DotaResponse.MostUsedHero mostUsedHero = calculate_mostUsedHero(matches, heroIDOccurrences);
