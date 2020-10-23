@@ -1,6 +1,10 @@
 package ee.taltech.dotaStats.service;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import ee.taltech.dotaStats.service.Dota.Match;
 import lombok.Data;
+
+import java.util.List;
 
 
 @Data
@@ -12,14 +16,19 @@ public class DotaResponse {
     private int mmr_estimate;
     private MostUsedHero most_used_hero;
     private LeastUsedHero least_used_hero;
+    //private Matches[] matches;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private List<Match> matches;
 
-    public DotaResponse(String player_name, String solo_competitive_rank, String competitive_rank, int mmr_estimate, MostUsedHero most_used_hero, LeastUsedHero least_used_hero) {
+    public DotaResponse(String player_name, String solo_competitive_rank, String competitive_rank, int mmr_estimate, MostUsedHero most_used_hero, LeastUsedHero least_used_hero, List<Match> matches ) {
         this.player_name = player_name;
         this.solo_competitive_rank = solo_competitive_rank;
         this.competitive_rank = competitive_rank;
         this.mmr_estimate = mmr_estimate;
         this.most_used_hero = most_used_hero;
         this.least_used_hero = least_used_hero;
+        this.matches = matches;
+
     }
 
     @Data
@@ -41,11 +50,20 @@ public class DotaResponse {
     @Data
     static
     class LeastUsedHero {
-        public LeastUsedHero(int hero_id) {
-            this.hero_id = hero_id;
-        }
+        public LeastUsedHero(int hero_id) { this.hero_id = hero_id; }
 
         private int hero_id;
+    }
+
+
+    @Data
+    static
+    class Matches {
+
+        public Matches(List<Match> matches) { this.matches = matches; }
+
+        private List<Match> matches;
+
     }
 
 

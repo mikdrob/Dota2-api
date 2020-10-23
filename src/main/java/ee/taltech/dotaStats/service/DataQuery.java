@@ -27,7 +27,7 @@ public class DataQuery {
 
     RestTemplate restTemplate = new RestTemplate();
 
-    public DotaResponse dataQuery(String playerId) {
+    public DotaResponse dataQuery(String playerId, Boolean displayMatches) {
         ResponseEntity<List<Match>> rateResponse = restTemplate.exchange("https://api.opendota.com/api/players/" + playerId + "/matches?api_key=1d67e82f-c0f0-4e49-bf0d-7a4e2bc537e2", HttpMethod.GET, null, new ParameterizedTypeReference<List<Match>>() {
         });
         List<Match> matches = rateResponse.getBody();
@@ -55,7 +55,7 @@ public class DataQuery {
                 rankResponse.getSoloRank(),
                 rankResponse.getCompetitiveRank(),
                 rankResponse.getMmr_estimate().getEstimate(),
-                mostUsedHero, leastUsedHero
+                mostUsedHero, leastUsedHero, (displayMatches) ? matches :  null
         );
 
         return dotaResponse;

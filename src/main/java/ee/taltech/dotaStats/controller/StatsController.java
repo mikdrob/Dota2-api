@@ -19,11 +19,11 @@ public class StatsController {
 
     @GetMapping
     @ApiOperation(value = "Get stats for given playerId", response = Iterable.class, tags = "getStats")
-    public DotaResponse index(@RequestParam String playerId) {
+    public DotaResponse index(@RequestParam String playerId, @RequestParam(defaultValue = "false") Boolean displayMatches) {
         log.info("Player ID - " + playerId);
         DataQuery dataquery = new DataQuery();
-        log.info("response from https://api.opendota.com/api/players/" + dataquery.dataQuery(playerId));
-        return dataquery.dataQuery(playerId);
+        log.info("response from https://api.opendota.com/api/players/" + dataquery.dataQuery(playerId, displayMatches));
+        return dataquery.dataQuery(playerId, displayMatches);
     }
 
 
