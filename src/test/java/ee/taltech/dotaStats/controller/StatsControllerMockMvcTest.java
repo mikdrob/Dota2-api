@@ -106,4 +106,12 @@ public class StatsControllerMockMvcTest {
                 .andExpect(jsonPath("$.message").value("Player not found or no available data."));
     }
 
+    @Test
+    void apiDocs_returns_stats_path() throws Exception {
+        mvc.perform(get("/api-docs").accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.paths./stats").exists())
+                .andExpect(jsonPath("$.info.title").value("Dota 2 Player Stats"));
+    }
+
 }
