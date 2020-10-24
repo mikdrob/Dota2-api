@@ -50,7 +50,7 @@ class rankResponseController {
 
 
     @Test
-    void ControllerHeroIDOCcurrences() {
+    void ServiceHeroIDOCcurrences() {
         ResponseEntity<Match> rateResponse = testRestTemplate.exchange("/stats?playerId=100616105&displayMatches=true", HttpMethod.GET, null, new ParameterizedTypeReference<Match>() {
         });
         Match matches = rateResponse.getBody();
@@ -62,7 +62,7 @@ class rankResponseController {
     }
 
     @Test
-    void ControllerMostUsedHero() {
+    void ServiceMostUsedHero() {
         ResponseEntity<Match> rateResponse = testRestTemplate.exchange("/stats?playerId=100616105&displayMatches=true", HttpMethod.GET, null, new ParameterizedTypeReference<Match>() {
         });
         Match matches = rateResponse.getBody();
@@ -78,6 +78,26 @@ class rankResponseController {
         DotaResponse.MostUsedHero mostUsedHero = calculate_mostUsedHero(Collections.singletonList(matches), heroIDOccurrences);
 
         assertNotNull(mostUsedHero);
+
+    }
+
+    @Test
+    void ServiceLeastUsedHero() {
+        ResponseEntity<Match> rateResponse = testRestTemplate.exchange("/stats?playerId=100616105&displayMatches=true", HttpMethod.GET, null, new ParameterizedTypeReference<Match>() {
+        });
+        Match matches = rateResponse.getBody();
+
+        ArrayList<Integer> heroIDList = new ArrayList<Integer>();
+
+        for (Match match : Collections.singletonList(matches)) {
+            heroIDList.add(match.getHero_id());
+        }
+
+        Map<Integer, Long> heroIDOccurrences = heroIDList.stream().collect(Collectors.groupingBy(w -> w, Collectors.counting()));
+
+        DotaResponse.LeastUsedHero leastUsedHero = calculate_leastUsedHero(Collections.singletonList(matches), heroIDOccurrences);
+
+        assertNotNull(leastUsedHero);
 
     }
 
