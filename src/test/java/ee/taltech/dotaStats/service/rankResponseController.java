@@ -37,7 +37,7 @@ class rankResponseController {
         assertNotNull(rankResponse);
         assertNotNull(rankResponse.getSoloRank());
         assertNotNull(rankResponse.getCompetitiveRank());
-        assertNotNull(rankResponse.getMmr_estimate().getEstimate());
+         assertNotNull(rankResponse.getMmr_estimate().getEstimate());
     }
 
     @Test

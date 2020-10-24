@@ -23,7 +23,7 @@ public class RestAssuredTest {
                 when().
                 get("http://localhost:8080/stats?playerId=100616104").
                 then().
-                assertThat().statusCode(400).body("message",Matchers.equalTo("Player not found or no available data."));
+                assertThat().statusCode(400 ).body("message",Matchers.equalTo("Player not found or no available data."));
 
     }
 

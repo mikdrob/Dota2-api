@@ -12,6 +12,17 @@ sourceCompatibility = '11'
 repositories {
 	mavenCentral()
 }
+jacoco {
+	toolVersion = "0.8.5"
+	reportsDir = file("$buildDir/customJacocoReportDir")
+}
+jacocoTestReport {
+	reports {
+		xml.enabled false
+		csv.enabled false
+		html.destination file("${buildDir}/jacocoHtml")
+	}
+}
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
