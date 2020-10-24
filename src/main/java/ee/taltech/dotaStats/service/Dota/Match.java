@@ -28,4 +28,5 @@ public class Match{
 
     @JsonProperty("radiant_win")
     private boolean radiant_win;
+
 }
