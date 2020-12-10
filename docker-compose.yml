@@ -1,0 +1,14 @@
+---
+version: "3.3"
+services:
+  finance:
+    container_name: dotastats
+    restart: always
+    hostname: dota-stats-api
+    build:
+      context: .
+      dockerfile: Dockerfile
+    working_dir: /.
+    volumes:
+      - /var/log/docker/logs/:/LogFiles/
+      - ./app:/app
