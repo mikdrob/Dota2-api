@@ -1,7 +1,7 @@
 ---
 version: "3.3"
 services:
-  finance:
+  dotastats:
     container_name: dotastats
     restart: always
     hostname: dota-stats-api
