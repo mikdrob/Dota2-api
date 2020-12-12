@@ -6,7 +6,7 @@ https://gitlab.cs.ttu.ee/ahjoyo/team5_project/-/wikis/Overview
 
 ## Setup Guide
 
-- See our detailed [setup guide](setup_guide.md)
+- See our detailed [setup guide](https://gitlab.cs.ttu.ee/ahjoyo/team5_project/-/wikis/Setup-Guide)
 
 ## Team Members 
 
