@@ -8,5 +8,5 @@ Type=simple
 User=prod-user
 RemainAfterExit=true
 WorkingDirectory=/home/prod-user/deployment
-ExecStart=/usr/bin/docker-compose up -d --remove-orphans
+ExecStart=/usr/bin/docker-compose up -d --build --remove-orphans
 ExecStop=/usr/bin/docker-compose down
