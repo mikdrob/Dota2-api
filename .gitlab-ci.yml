@@ -2,6 +2,7 @@
 image: gradle:6.7.0-jdk11
 
 stages:
+  - test
   - build
   - deploy
 
@@ -13,6 +14,13 @@ before_script:
   - mkdir -p ~/.ssh
   - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
   - chmod +x ./gradlew
+
+test job:
+  stage: test
+  tags:
+    - runner
+  script:
+    - ./gradlew clean test
 
 build job:
   tags:

@@ -44,6 +44,7 @@ dependencies {
 
 test {
 	useJUnitPlatform()
+	exclude '**/*RestAssuredTest*' // These tests require web app to be up and cannot be tested with ci/cd
 }
 
 configurations {
