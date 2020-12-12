@@ -31,6 +31,7 @@ build job:
       - build/libs
   script:
     - ./gradlew bootjar
+    - ssh -o StricthostKeyChecking=no prod-user@192.168.0.2 "[ -d "~/deployment/nginx/" ] || mkdir ~/deployment/nginx/"
     - scp -o StricthostKeyChecking=no {Dockerfile,docker-compose.yml,dotastats.service,build/libs/dotaStats-0.0.1-SNAPSHOT.jar} prod-user@192.168.0.2:~/deployment/
     - scp -o StricthostKeyChecking=no nginx/reverse-proxy.conf prod-user@192.168.0.2:~/deployment/nginx/reverse-proxy.conf
 
