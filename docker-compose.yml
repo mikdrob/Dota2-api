@@ -9,6 +9,7 @@ services:
    - 80:80
    volumes:
    - reverse-proxy.conf:/etc/nginx/reverse-proxy.conf
+   - /etc/nginx/cloudflare-allow.conf:/etc/nginx/cloudflare-allow.conf
    depends_on:
    - dotastats
   dotastats:
