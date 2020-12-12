@@ -23,11 +23,11 @@ build job:
       - build/libs
   script:
     - ./gradlew bootjar
-    - scp -o StricthostKeyChecking=no {Dockerfile,docker-compose.yml,build/libs/dotaStats-0.0.1-SNAPSHOT.jar} prod-user@192.168.0.2:~/deployment/
+    - scp -o StricthostKeyChecking=no {Dockerfile,docker-compose.yml,dotastats.service,build/libs/dotaStats-0.0.1-SNAPSHOT.jar} prod-user@192.168.0.2:~/deployment/
 
 deploy job:
   tags:
     - runner
   stage: deploy
   script:
-    - ssh -o StricthostKeyChecking=no prod-user@192.168.0.2 "cd deployment/ && sudo docker-compose up -d --build"
+    - ssh -o StricthostKeyChecking=no prod-user@192.168.0.2 "cd deployment/ && [[ -f /etc/systemd/system/dotastats.service ]] || sudo cp dotastats.service /etc/systemd/system/ && sudo service dotastats restart"
