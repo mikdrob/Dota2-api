@@ -3,15 +3,14 @@
 Overview of the project:
 https://gitlab.cs.ttu.ee/ahjoyo/team5_project/-/wikis/Overview
 
-### Links
-
-http://localhost:8080/stats?playerId=
-http://localhost:8080/swagger-ui/
 
 ## Setup Guide
 
-Run the application and use UI to get responces
-http://localhost:8080/swagger-ui/
+- See our detailed [setup guide](setup_guide.md)
+
+## Component diagram
+
+![alt text](component diagram.jpg)
 
 ## Team Members 
 
