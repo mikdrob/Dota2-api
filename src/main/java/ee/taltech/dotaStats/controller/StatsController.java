@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
-@RequestMapping("/stats")
+@RequestMapping({"/stats", "/stat2"})
 @Tag(name = "Player Stats", description = "Return player hero stats & rank based on matches")
 @RestController
 public class StatsController {
