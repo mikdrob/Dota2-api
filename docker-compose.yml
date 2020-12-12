@@ -8,7 +8,7 @@ services:
    ports:
    - 80:80
    volumes:
-   - reverse-proxy.conf:/etc/nginx/reverse-proxy.conf
+   - reverse-proxy.conf:/etc/nginx/sites-enabled/reverse-proxy.conf
    - /etc/nginx/cloudflare-allow.conf:/etc/nginx/cloudflare-allow.conf
    depends_on:
    - dotastats
