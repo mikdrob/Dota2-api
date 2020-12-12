@@ -114,3 +114,90 @@ Install `docker-compose` in build server:
 ```
 sudo apt install docker-compose
 ```
+
+## Gitlab runner
+
+Install `gitlab-runner` in build server:
+
+```
+useradd --comment 'GitLab Runner' --create-home gitlab-runner --shell /bin/bash
+curl -L --output /usr/local/bin/gitlab-runner https://gitlab-runner-downloads.s3.amazonaws.com/latest/binaries/gitlab-runner-linux-amd64
+chmod +x /usr/local/bin/gitlab-runner
+gitlab-runner install --user=gitlab-runner --working-directory=/home/gitlab-runner
+gitlab-runner start
+```
+
+Generate SSH key for `gitlab-runner` user in build server:
+
+```
+runuser -l gitlab-runner -c 'ssh-keygen -b 2048 -t rsa -f ~/.ssh/id_rsa -q -N ""'
+```
+
+Add private key in gitlab as CI/CD variable `SSH_PRIVATE_KEY`.
+
+### Production deployment user
+
+```
+useradd -m prod-user --shell /bin/bash
+usermod -aG sudo prod-user
+usermod -aG docker prod-user # Add to docker group
+echo "prod-user ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+```
+
+Add public key of `gitlab-runner` (build server) to `authorized_keys` of `prod-user` user in production server.
+
+## Cloudflare Setup
+
+- Changed nameservers in Namecheap to that of Cloudflare.
+- Created A record to point brryli.wtf to 95.217.129.128 (prod)
+
+## NginX white-listing
+
+In NginX reverse proxy setup, we white-list incoming requests ONLY from cloudflare:
+
+```
+# /etc/nginx/sites-available/reverse-proxy.conf
+server {
+        listen 80;
+        listen [::]:80;
+
+
+        include /etc/nginx/cloudflare-allow.conf;
+        deny all;
+
+        access_log /var/log/nginx/reverse-access.log;
+        error_log /var/log/nginx/reverse-error.log;
+
+        location / {
+                    proxy_pass http://dota-stats-api:8080;
+  }
+}
+```
+
+The above config grabs cloudflare IP ranges from `cloudflare-allow.conf` and denies all other requests. Cloudflare IP ranges are available at:
+- Https://www.cloudflare.com/ips-v4
+- Https://www.cloudflare.com/ips-v6
+
+Run the following commands to populate `cloudflare-allow.conf`:
+```
+wget https://www.cloudflare.com/ips-v{4,6} -O cloudflare-ips
+sudo su -c "sed -e 's/^/allow /' -e 's/$/;/' cloudflare-ips > /etc/nginx/cloudflare-allow.conf"
+```
+
+### Cron-job
+
+As cloudflare might update their ranges at any time, it is a good idea to create a cron-job to regularly keep the white-list up to date. Create the following file and place in `/etc/cron.weekly/cloudflare-whitelist.sh`:
+
+```
+#!/bin/sh
+# 
+# cloudflare whitelist update cron weekly
+
+wget https://www.cloudflare.com/ips-v{4,6} -O cloudflare-ips
+sudo su -c "sed -e 's/^/allow /' -e 's/$/;/' cloudflare-ips > /etc/nginx/cloudflare-allow.conf"
+```
+
+Make the file executable:
+```
+chmod +x /etc/cron.weekly/cloudflare-whitelist.sh
+```
