@@ -8,10 +8,6 @@ https://gitlab.cs.ttu.ee/ahjoyo/team5_project/-/wikis/Overview
 
 - See our detailed [setup guide](setup_guide.md)
 
-## Component diagram
-
-![alt text](component diagram.jpg)
-
 ## Team Members 
 
 - Ibrani Shpëtim | shibra
