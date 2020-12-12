@@ -20,7 +20,7 @@ test job:
   tags:
     - runner
   script:
-    - ./gradlew clean test --no-daemon
+    - ./gradlew clean test
 
 build job:
   tags:
